@@ -41,11 +41,26 @@ def webhook():
             type_msg_recu = depaquet[0]
             if type_msg_recu == 'text_msg' :
                 type_msg_recu, texte, mots_du_msg=depaquet
-                texte = "Réponse à un message"
-                payload = send_text(sender,texte)
-                send_paquet(token,payload)
-                print('Reponse à une vulgarité')
-                return 'nothing'
+                menu=download_menu()
+                print(menu)
+                if ("menu" in mots_du_msg) and ("midi" in mots_du_msg):
+                    texte ="Menu du midi :"+'\n'+'\n' "Entrée chaude : " +menu[0]+'\n' +"Plat 1 : "+ menu[1]+'\n'+"Accompagnement 1 : " + menu[2]+'\n'+"Plat 2 : " + menu[3]+'\n'+"Accompagnement 2 : "  + menu[4]+'\n'+"Plat 3 "+ menu[5]+'\n'+"Accompagnement 3 : " + menu[6]+'\n'+"Dessert chaud : "+menu[7]
+                    payload = send_text(sender,texte)
+                    send_paquet(token,payload)
+                    print('Repas midi envoyé')
+                    return 'nothing'
+                elif ("menu" in mots_du_msg) and ("soir" in mots_du_msg):
+                    texte ="Menu du soir :"+'\n'+'\n' "Plat 1 : "+ menu[8]+'\n'+"Accompagnement 1 : " + menu[9]+'\n'+"Plat 2 : "+menu[10]
+                    payload = send_text(sender,texte)
+                    send_paquet(token,payload)
+                    print('Repas soir envoyé')
+                    return 'nothing'
+                elif ("cafet" in mots_du_msg) or ("cafete" in mots_du_msg):
+                    texte ="Menu de la cafete :"+'\n'+'\n' +"salade 1 : "+ menu[11]+'\n'+"salade 2 : " + menu[12]+'\n'+"salade 3 : "+menu[13]+'\n' +"sandwich 1 : "+ menu[14]+'\n'+"sandwich 2 : " + menu[15]+'\n'+"sandwich 3 : "+menu[16]
+                    payload = send_text(sender,texte)
+                    send_paquet(token,payload)
+                    print('Repas soir envoyé')
+                    return 'nothing'
 
         except Exception as e:
                     print(traceback.format_exc())
@@ -68,6 +83,14 @@ def download_menu():
     req = urllib.request.Request('http://services.telecom-bretagne.eu/rak/')
     the_page = urllib.request.urlopen(req)
     page = the_page.read()
+    soup = BeautifulSoup(page, 'html.parser')
+    plats = soup.find_all("td", attrs={"class" : "col-md-4"})
+    result = []
+    for plat in plats:
+        a = str(plat.getText())
+        result.append(a[1:-1])
+    return result
+
 
 # ENVOYER UN PAYLOAD
 def send_paquet(sender,payload):

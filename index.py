@@ -40,19 +40,19 @@ def webhook():
                 menu=download_menu()
                 print(menu)
                 if ("menu" in mots_du_msg) and ("midi" in mots_du_msg):
-                    texte ="Menu du midi :"+'\n'+'\n' "Entrée chaude : " +menu[0]+'\n' +"Plat 1 : "+ menu[1]+'\n'+"Accompagnement 1 : " + menu[2]+'\n'+"Plat 2 : " + menu[3]+'\n'+"Accompagnement 2 : "  + menu[4]+'\n'+"Plat 3 "+ menu[5]+'\n'+"Accompagnement 3 : " + menu[6]+'\n'+"Dessert chaud : "+menu[7]
+                    texte ="Menu du midi :"+'\n'+'\n' "Entrée chaude : " +menu[0]+'\n' +"Plat 1 : "+ menu[1]+'\n'+"Accompagnement 1 : " + menu[2]+'\n'+"Plat 2 : " + menu[3]+'\n'+"Accompagnement 2 : "  + menu[4]+'\n'+"Accompagnement 3 : " + menu[5]+'\n'+"Dessert chaud : "+menu[6]
                     payload = send_text(sender,texte)
                     send_paquet(token,payload)
                     print('Repas midi envoyé')
                     return 'nothing'
                 elif ("menu" in mots_du_msg) and ("soir" in mots_du_msg):
-                    texte ="Menu du soir :"+'\n'+'\n' "Plat 1 : "+ menu[8]+'\n'+"Accompagnement 1 : " + menu[9]+'\n'+"Plat 2 : "+menu[10]
+                    texte ="Menu du soir :"+'\n'+'\n' "Plat 1 : "+ menu[7]+'\n'+"Accompagnement 1 : " + menu[8]+'\n'+"Plat 2 : "+menu[9]
                     payload = send_text(sender,texte)
                     send_paquet(token,payload)
                     print('Repas soir envoyé')
                     return 'nothing'
                 elif ("cafet" in mots_du_msg) or ("cafete" in mots_du_msg):
-                    texte ="Menu de la cafete :"+'\n'+'\n' +"salade 1 : "+ menu[11]+'\n'+"salade 2 : " + menu[12]+'\n'+"salade 3 : "+menu[13]+'\n' +"sandwich 1 : "+ menu[14]+'\n'+"sandwich 2 : " + menu[15]+'\n'+"sandwich 3 : "+menu[16]
+                    texte ="Menu de la cafete :"+'\n'+'\n' +"salade 1 : "+ menu[10]+'\n'+"salade 2 : " + menu[11]+'\n'+"salade 3 : "+menu[12]+'\n' +"sandwich 1 : "+ menu[13]+'\n'+"sandwich 2 : " + menu[14]+'\n'+"sandwich 3 : "+menu[15]
                     payload = send_text(sender,texte)
                     send_paquet(token,payload)
                     print('Repas soir envoyé')

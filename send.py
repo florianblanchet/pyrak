@@ -1,6 +1,5 @@
 # POUR GENERER DES PAYLOAD :
 from toolkit import recherche_similitude
-from app import *
 
 def send_share(sender):
   texte = "Hal est un chatbot qui offre un certain nombre de services tels que donner l'actualité, la météo ou même faire des recherches sur wkipédia. Tu as simplement besoin de lui dire Bonjour pour commencer l'expérience!"

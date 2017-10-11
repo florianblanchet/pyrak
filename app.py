@@ -11,11 +11,8 @@ from send import *
 import urllib.request
 from bs4 import BeautifulSoup
 
-#token = os.environ.get('FB_ACCESS_TOKEN')
-token = 'EAAFo1IiXrQwBABjWTFk7ZA4XL2kmhFt6M0t0pTjJWSGRppsTWQOYI7Lylcub4899ZBpZBOHz3N4CfvABclqw7ZA5CNZB1JtfhtFEVShC8KP3ZB3GLqmc5RLtnBX3WGl1aMM0zYvm6DAxIvCeOXem1YsFqpcVsrp1pZAzpkeF0QeCAZDZD'
-#FB_VERIFY_TOKEN =os.environ.get('FB_VERIFY_TOKEN')
-FB_VERIFY_TOKEN = 'test_token'
-me = '1437816462930392' #ID de l'app
+token = os.environ.get('FB_ACCESS_TOKEN')
+FB_VERIFY_TOKEN =os.environ.get('FB_VERIFY_TOKEN')
 
 app = Flask("app")  #instance de la classe FLask. premier argument est le nom
 

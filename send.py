@@ -1,32 +1,7 @@
 # POUR GENERER DES PAYLOAD :
-import wikipedia
 from toolkit import recherche_similitude
 from app import *
 
-def send_classement_ligue1(sender, tableau):
-    texte = ''
-    for i in range(len(tableau)):
-        texte+=str(i+1)+' '+tableau[i][0]+' '+tableau[i][1]+'pts, '+tableau[i][2]+'diff\n'
-    payload = send_choix_multiple3(sender,texte,'Foot','Actu Sport','Menu')
-    return payload
-def send_classement_liga(sender, tableau):
-    texte = ''
-    for i in range(len(tableau)):
-        texte+=str(i+1)+' '+tableau[i][0]+' '+tableau[i][1]+'pts\n'
-    payload = send_choix_multiple3(sender,texte,'Foot','Actu Sport','Menu')
-    return payload
-def send_resultats_ligue1(sender,tableau):
-    texte = ''
-    for i in range(len(tableau)):
-        texte+=tableau[i][0]+' '+tableau[i][2]+' '+tableau[i][1]+'\n'
-    payload = send_choix_multiple3(sender,texte,'Foot','Actu Sport','Menu')
-    return payload
-def send_resultats_liga(sender,tableau):
-    texte = ''
-    for i in range(len(tableau)):
-        texte+=tableau[i][0]+' '+tableau[i][2]+' '+tableau[i][1]+'\n'
-    payload = send_choix_multiple3(sender,texte,'Foot','Actu Sport','Menu')
-    return payload
 def send_share(sender):
   texte = "Hal est un chatbot qui offre un certain nombre de services tels que donner l'actualité, la météo ou même faire des recherches sur wkipédia. Tu as simplement besoin de lui dire Bonjour pour commencer l'expérience!"
   return {"recipient":{"id":sender },

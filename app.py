@@ -8,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime 
 from toolkit import *
 from send import *
+import urllib.request
+from bs4 import BeautifulSoup
 
 #token = os.environ.get('FB_ACCESS_TOKEN')
 token = 'EAAFo1IiXrQwBABjWTFk7ZA4XL2kmhFt6M0t0pTjJWSGRppsTWQOYI7Lylcub4899ZBpZBOHz3N4CfvABclqw7ZA5CNZB1JtfhtFEVShC8KP3ZB3GLqmc5RLtnBX3WGl1aMM0zYvm6DAxIvCeOXem1YsFqpcVsrp1pZAzpkeF0QeCAZDZD'
@@ -25,7 +27,7 @@ print('    | $$$$$$$$$$   |_______$$   | $$$$       ')
 print('    | $$    \ $$    /$$$$$$$$   | $$ $$      ')
 print('    | $$     \ $$  |$$__   $$   | $$  $$     ')
 print('    | $$      \ $$ | $$$$$$$$   | $$ \ $$    ')
-print('    |__/       \_/  \_______/   |__/  |_/       ')
+print('    |__/       \_/  \_______/   |__/  |_/    ')
 
 @app.route('/', methods=['GET', 'POST']) #A decorator that is used to register a view function for a given URL rule.Ici rule = / et en option les methodes assignées à ce rule
 def webhook():
@@ -40,7 +42,7 @@ def webhook():
             if type_msg_recu == 'text_msg' :
                 type_msg_recu, texte, mots_du_msg=depaquet
                 texte = "Réponse à un message"
-                payload = send_choix_multiple4(sender,texte,'Actualité',actu_img,'Météo',meteo_img,'Wiki obama',wiki_img,'Date',date_img)
+                payload = send_text(sender,texte)
                 send_paquet(token,payload)
                 print('Reponse à une vulgarité')
                 return 'nothing'
@@ -60,6 +62,12 @@ wiki_img = 'http://www.icone-png.com/png/25/24983.png'
 date_img = 'https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/Date_calendar_event_month_time_day_vector.png'
 pomme_img = 'https://s2.qwant.com/thumbr/0x0/5/8/3078a9585992fbea80e57c386326b7/b_1_q_0_p_0.jpg?u=http%3A%2F%2Fwww.free-icons-download.net%2Fimages%2Fred-apple-icon-54633.png&q=0&b=1&p=0&a=1' 
 snake_img = 'http://www.indir.org/icon/classic_snake_2_icon.png'      
+
+#DOWNLOAD MENU
+def download_menu():
+    req = urllib.request.Request('http://services.telecom-bretagne.eu/rak/')
+    the_page = urllib.request.urlopen(req)
+    page = the_page.read()
 
 # ENVOYER UN PAYLOAD
 def send_paquet(sender,payload):

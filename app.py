@@ -4,8 +4,6 @@ import requests
 import traceback
 import json
 from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime 
 from toolkit import *
 from send import *
 import urllib.request

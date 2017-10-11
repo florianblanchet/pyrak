@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 
 token = os.environ.get('FB_ACCESS_TOKEN')
 FB_VERIFY_TOKEN =os.environ.get('FB_VERIFY_TOKEN')
+me = os.environ.get('MY_ID')
 
 app = Flask("app")  #instance de la classe FLask. premier argument est le nom
 

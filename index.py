@@ -9,11 +9,24 @@ from send import *
 import urllib.request
 from bs4 import BeautifulSoup
 
+
+#TOKEN de prod
 token = os.environ.get('FB_ACCESS_TOKEN')
-FB_VERIFY_TOKEN =os.environ.get('FB_VERIFY_TOKEN')
+FB_VERIFY_TOKEN = (os.environ.get('FB_VERIFY_TOKEN'))
+if token==None:
+    #TOKEN de test
+    token="EAAFo1IiXrQwBABjWTFk7ZA4XL2kmhFt6M0t0pTjJWSGRppsTWQOYI7Lylcub4899ZBpZBOHz3N4CfvABclqw7ZA5CNZB1JtfhtFEVShC8KP3ZB3GLqmc5RLtnBX3WGl1aMM0zYvm6DAxIvCeOXem1YsFqpcVsrp1pZAzpkeF0QeCAZDZD"
+
+if FB_VERIFY_TOKEN==None:
+    FB_VERIFY_TOKEN = "test_token"
+
+me = "1437816462930392"
 
 app = Flask("app")  #instance de la classe FLask. premier argument est le nom
-
+choix1 = "menu midi"
+choix2 = "menu soir"
+choix3 = "cafete"
+choix4 = "horaires"
 
 print('     /$$$$$$$$\                  /$$   $$    ')
 print('    | $$    |$$                 | $$  $$     ')
@@ -37,25 +50,55 @@ def webhook():
             if type_msg_recu == 'text_msg' :
                 type_msg_recu, texte, mots_du_msg=depaquet
                 menu=download_menu()
-                print(menu)
-                if ("menu" in mots_du_msg) and ("midi" in mots_du_msg):
-                    texte ="Menu du midi :"+'\n'+'\n' "Entrée chaude : " +menu[0]+'\n' +"Plat 1 : "+ menu[1]+'\n'+"Accompagnement 1 : " + menu[2]+'\n'+"Plat 2 : " + menu[3]+'\n'+"Accompagnement 2 : "  + menu[4]+'\n'+"Plat 3 "+ menu[5]+'\n'+"Accompagnement 3 : " + menu[6]+'\n'+"Dessert chaud : "+menu[7]
-                    payload = send_text(sender,texte)
+                if ("menu" in mots_du_msg) and (similitudes(midi_liste,mots_du_msg)!=[]):
+                    texte ="Menu du midi :"+'\n'+'\n' +menu[0][1]+" : " +menu[0][0]+'\n\n' +menu[1][1]+" : "+ menu[1][0]+'\n\n'+menu[2][1]+" : " + menu[2][0]+'\n\n'+menu[3][1]+" : "+ menu[3][0]+'\n\n'+menu[4][1] +" : "+ menu[4][0]+'\n\n'+menu[5][1]+" : "+ menu[5][0]+'\n\n'+menu[6][1]+" : "+ menu[6][0]
+                    #payload = send_text(sender,texte)
+                    payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
                     send_paquet(token,payload)
                     print('Repas midi envoyé')
                     return 'nothing'
                 elif ("menu" in mots_du_msg) and ("soir" in mots_du_msg):
-                    texte ="Menu du soir :"+'\n'+'\n' "Plat 1 : "+ menu[8]+'\n'+"Accompagnement 1 : " + menu[9]+'\n'+"Plat 2 : "+menu[10]
-                    payload = send_text(sender,texte)
+                    texte ="Menu du soir :"+'\n'+'\n'+menu[7][1]+" : " +menu[7][0]+'\n\n' +menu[8][1]+" : "+ menu[8][0]+'\n\n'+menu[9][1]+" : " + menu[9][0]+'\n\n'+menu[10][1]+" : " + menu[10][0]
+                    payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
                     send_paquet(token,payload)
                     print('Repas soir envoyé')
                     return 'nothing'
-                elif ("cafet" in mots_du_msg) or ("cafete" in mots_du_msg):
-                    texte ="Menu de la cafete :"+'\n'+'\n' +"salade 1 : "+ menu[11]+'\n'+"salade 2 : " + menu[12]+'\n'+"salade 3 : "+menu[13]+'\n' +"sandwich 1 : "+ menu[14]+'\n'+"sandwich 2 : " + menu[15]+'\n'+"sandwich 3 : "+menu[16]
-                    payload = send_text(sender,texte)
+                elif similitudes(cafete_liste,mots_du_msg)!=[]:
+                    texte ="Menu de la cafete :"+'\n'+'\n' +menu[11][1]+" : " +menu[11][0]+'\n\n' +menu[12][1]+" : "+ menu[12][0]+'\n\n'+menu[13][1]+" : " + menu[13][0]+'\n\n'+menu[14][1]+" : " + menu[14][0]+'\n\n'+menu[15][1]+" : " + menu[15][0]+'\n\n'+menu[16][1]+" : " + menu[16][0]
+                    payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
                     send_paquet(token,payload)
                     print('Repas soir envoyé')
                     return 'nothing'
+                elif similitudes(horaire_liste,mots_du_msg)!=[]:
+                    texte = "RAK :\nLundi au vendredi \n11h30 - 13h15\n19h15 - 20h00\n\nSamedi - Dimanche - Jours fériés \n12h15 - 13h\n19h15 - 20h00\n\nVacances scolaires \n11h45 - 13h\n19h30 - 20h\n\nBAR :\n Lundi au vendredi \n7h30 - 16h45" 
+                    payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
+                    send_paquet(token,payload)
+                    print('Demande du type de menu')
+                    return 'nothing'
+                elif ("partager" in mots_du_msg):
+                    payload = send_share(sender)                    
+                    send_paquet(token,payload)
+                    print('Demande de partage')
+                    return 'nothing'
+                elif ("menu" in mots_du_msg):
+                    texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous" 
+                    payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
+                    send_paquet(token,payload)
+                    print('Demande du type de menu')
+                    return 'nothing'
+                elif ("white" in mots_du_msg):
+                    payload = whitelist()
+                    send_paquet(token,payload)
+                    print('WHitelist demandé')
+                    return 'nothing'
+                else :
+                    texte = "Je suis là que pour donner le menu ne m'en demandes pas trop! 😉"
+                    payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
+                    send_paquet(token,payload)
+                    print('Message - Pas compris')
+                    return 'nothing'
+            else:
+                print(data)
 
         except Exception as e:
                     print(traceback.format_exc())
@@ -65,13 +108,10 @@ def webhook():
         return "Wrong Verify Token"
     return "Nothing"
 
-ponct_liste = ['.',',','!','?',';',':']
-meteo_img = 'http://ian.umces.edu/imagelibrary/albums/userpics/12865/normal_ian-symbol-weather-solar-radiation.png'
-actu_img = 'http://icons.iconarchive.com/icons/zerode/plump/256/Network-Earth-icon.png'
-wiki_img = 'http://www.icone-png.com/png/25/24983.png'
-date_img = 'https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/Date_calendar_event_month_time_day_vector.png'
-pomme_img = 'https://s2.qwant.com/thumbr/0x0/5/8/3078a9585992fbea80e57c386326b7/b_1_q_0_p_0.jpg?u=http%3A%2F%2Fwww.free-icons-download.net%2Fimages%2Fred-apple-icon-54633.png&q=0&b=1&p=0&a=1' 
-snake_img = 'http://www.indir.org/icon/classic_snake_2_icon.png'      
+ponct_liste = ['.',',','!','?',';',':'] 
+midi_liste = ["midi","dejeuner","déjeuner","dejeune"]
+cafete_liste = ["cafete","cafeteriat","cafetariat","bar","cafet"]
+horaire_liste = ["horaire","horaires"]
 
 #DOWNLOAD MENU
 def download_menu():
@@ -80,12 +120,13 @@ def download_menu():
     page = the_page.read()
     soup = BeautifulSoup(page, 'html.parser')
     plats = soup.find_all("td", attrs={"class" : "col-md-4"})
+    nom_plats = soup.find_all("td", attrs={"align" : "left"})
     result = []
-    for plat in plats:
-        a = str(plat.getText())
-        result.append(a[1:-1])
+    for i in range(len(plats)):
+        a = str(plats[i].getText())
+        b = str(nom_plats[i].getText())
+        result.append([a[1:-1],b[2:-2]])
     return result
-
 
 # ENVOYER UN PAYLOAD
 def send_paquet(sender,payload):
@@ -93,71 +134,16 @@ def send_paquet(sender,payload):
     print(r.text) # affiche la reponse à l'envoit; pratique si veut l'ID ou voir si bien envoyé
     pass
 
-def send_webview(sender,title1,subtitle1,image_url1,link1,payload1):
-    payload = {
-    "recipient": {
-      "id": sender
-    },
-    "message": {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": title1,
-            "subtitle": subtitle1,
-            "item_url": link1,               
-            "image_url": image_url1,
-            "buttons": [{
-              "type": "web_url",
-              "url": link1,
-              "title": "Ouvre le lien"
-            }, {
-              "type": "web_url",
-              "url":'https://m.me/mrjesaistout?ref=take_quiz',
-              "title": "webview",
-              "webview_height_ratio": "compact",
-              "messenger_extensions": True
-            }],
-          }]
-        }
-      }
-    }
-    }
-    return payload
 def whitelist():
     payload = {
+    "recipient":{
+    "id":me
+    },
     "whitelisted_domains":[
-    "https://m.me/mrjesaistout"
+    "https://m.me/pyrakk"
     ]
     }
     return payload 
-
-# INTERACTION UTILISATEUR PAS ENCORE UTILISE
-def msg_seen(sender):
-    payload = {
-        "recipient":{
-            "id":sender
-            },
-        "sender_action":"mark_seen"
-    }
-    send_paquet(sender,payload)
-def typing_on(sender):
-    payload = {
-        "recipient":{
-            "id":sender
-            },
-        "sender_action":"typing_on"
-    }
-    send_paquet(sender,payload)
-def typing_off(sender):
-    payload = {
-        "recipient":{
-            "id":sender
-            },
-        "sender_action":"typing_off"
-    }
-    send_paquet(sender,payload)
 
 # CONFIGURATION DE LA PAGE HAL
 def reglage_menu():

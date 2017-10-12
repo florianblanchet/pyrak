@@ -1,16 +1,15 @@
 # POUR GENERER DES PAYLOAD :
 from toolkit import recherche_similitude
-from app import *
 
 def send_share(sender):
-  texte = "Hal est un chatbot qui offre un certain nombre de services tels que donner l'actualité, la météo ou même faire des recherches sur wkipédia. Tu as simplement besoin de lui dire Bonjour pour commencer l'expérience!"
+  texte = "Pyrak est un chatbot permettant de demander le menu du RAK, restaurant de l'IMT Atlantique"
   return {"recipient":{"id":sender },
   "message":{
     "attachment":{
       "type":"template",
       "payload":{
         "template_type":"button",
-        "text":'Click pour permettre à tes potes de discuter avec moi 🙏!',
+        "text":"Click pour permettre à tes potes de savoir ce qu'il y a au RAK!",
         "buttons":[
             {
             "type": "element_share",
@@ -20,12 +19,12 @@ def send_share(sender):
                     "payload": {
                         "template_type": "generic",
                         "elements": [{
-                            "title": "Hal Chatbot",
+                            "title": "Pyrak Chatbot",
                             "subtitle": texte,
-                            "default_action": {"type": "web_url","url": 'https://m.me/halcomputer'},
+                            "default_action": {"type": "web_url","url": 'https://m.me/pyrak'},
                             "buttons": [{
                                   "type": "web_url",
-                                  "url": 'http://m.me/halcomputer', 
+                                  "url": 'http://m.me/pyrak', 
                                   "title": 'Se lancer !'
                                 }]
                             }]
@@ -726,7 +725,7 @@ def send_choix_multiple3(sender,texte,choix1,choix2,choix3):
     ]
   }
  } 
-def send_choix_multiple4(sender,texte,choix1,img_url1,choix2,img_url2,choix3,img_url3,choix4,img_url4):
+def send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4):
   return {
   "recipient":{
     "id":sender
@@ -738,72 +737,22 @@ def send_choix_multiple4(sender,texte,choix1,img_url1,choix2,img_url2,choix3,img
         "content_type":"text",
         "title":choix1,
         "payload":choix1,
-        "image_url" : img_url1
       },
       {
         "content_type":"text",
         "title":choix2,
         "payload":choix2,
-        "image_url" : img_url2
       },
       {
         "content_type":"text",
         "title":choix3,
         "payload":choix3,
-        "image_url" : img_url3
       },
       {
         "content_type":"text",
         "title":choix4,
         "payload":choix4,
-        "image_url" : img_url4
       }
     ]
   }
  }
-def send_choix_multiple7(sender,texte,choix1,choix2,choix3,choix4,choix5,choix6,choix7):
-  return {
-  "recipient":{
-    "id":sender
-  },
-  "message":{
-    "text":texte,
-    "quick_replies":[
-      {
-        "content_type":"text",
-        "title":choix1,
-        "payload":choix1
-      },
-      {
-        "content_type":"text",
-        "title":choix2,
-        "payload":choix2
-      },
-      {
-        "content_type":"text",
-        "title":choix3,
-        "payload":choix3
-      },
-      {
-        "content_type":"text",
-        "title":choix4,
-        "payload":choix4
-      },
-      {
-        "content_type":"text",
-        "title":choix5,
-        "payload":choix5
-      },
-      {
-        "content_type":"text",
-        "title":choix6,
-        "payload":choix6
-      },
-      {
-        "content_type":"text",
-        "title":choix7,
-        "payload":choix7
-      }
-    ]
-  }
- } 

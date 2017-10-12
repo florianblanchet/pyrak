@@ -755,4 +755,8 @@ def send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4):
       }
     ]
   }
+<<<<<<< HEAD
  }
+=======
+ } 
+>>>>>>> 21a441faa88ea0caba65266b9dceafe1921bf891

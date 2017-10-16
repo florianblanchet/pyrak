@@ -3,7 +3,7 @@ import os
 import requests
 import traceback
 import json
-from flask import Flask, request
+from flask import Flask, request, render_template
 from toolkit import *
 from send import *
 import urllib.request
@@ -108,6 +108,10 @@ def webhook():
             return request.args.get('hub.challenge')
         return "Wrong Verify Token"
     return "Nothing"
+
+@app.route('/confidentialite',methods=['GET'])
+def confident():
+    return render_template('index.html')
 
 ponct_liste = ['.',',','!','?',';',':'] 
 midi_liste = ["midi","dejeuner","déjeuner","dejeune"]

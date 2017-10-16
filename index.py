@@ -20,7 +20,7 @@ FB_VERIFY_TOKEN = (os.environ.get('FB_VERIFY_TOKEN'))
 #if FB_VERIFY_TOKEN==None:
 #    FB_VERIFY_TOKEN = "test_token"
 
-me = "1437816462930392"
+me = os.environ.get('MY_ID')
 
 app = Flask("app")  #instance de la classe FLask. premier argument est le nom
 choix1 = "Menu midi"

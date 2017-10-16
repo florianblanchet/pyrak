@@ -50,7 +50,6 @@ def webhook():
             if type_msg_recu == 'text_msg' :
                 type_msg_recu, texte, mots_du_msg=depaquet
                 menu=download_menu()
-                print(menu)
                 if ("menu" in mots_du_msg) and (similitudes(midi_liste,mots_du_msg)!=[]):
                     texte ="Menu du midi :"+'\n'+'\n' +menu[0][1]+" : " +menu[0][0]+'\n\n' +menu[1][1]+" : "+ menu[1][0]+'\n\n'+menu[2][1]+" : " + menu[2][0]+'\n\n'+menu[3][1]+" : "+ menu[3][0]+'\n\n'+menu[4][1] +" : "+ menu[4][0]+'\n\n'+menu[5][1]+" : "+ menu[5][0]+'\n\n'+menu[6][1]+" : "+ menu[6][0]
                     #payload = send_text(sender,texte)
@@ -90,7 +89,7 @@ def webhook():
                 elif ("white" in mots_du_msg):
                     payload = whitelist()
                     send_paquet(token,payload)
-                    print('WHitelist demandé')
+                    print('Whitelist demandé')
                     return 'nothing'
                 else :
                     texte = "Je suis là que pour donner le menu ne m'en demandes pas trop! 😉"

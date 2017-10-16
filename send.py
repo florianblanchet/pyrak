@@ -21,10 +21,10 @@ def send_share(sender):
                         "elements": [{
                             "title": "Pyrak Chatbot",
                             "subtitle": texte,
-                            "default_action": {"type": "web_url","url": 'https://m.me/pyrak'},
+                            "default_action": {"type": "web_url","url": 'https://www.facebook.com/menupyrak/'},
                             "buttons": [{
                                   "type": "web_url",
-                                  "url": 'http://m.me/pyrak', 
+                                  "url": 'https://www.facebook.com/menupyrak/', 
                                   "title": 'Se lancer !'
                                 }]
                             }]
@@ -755,8 +755,4 @@ def send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4):
       }
     ]
   }
-<<<<<<< HEAD
  }
-=======
- } 
->>>>>>> 21a441faa88ea0caba65266b9dceafe1921bf891

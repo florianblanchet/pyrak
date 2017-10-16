@@ -23,10 +23,10 @@ if FB_VERIFY_TOKEN==None:
 me = "1437816462930392"
 
 app = Flask("app")  #instance de la classe FLask. premier argument est le nom
-choix1 = "menu midi"
-choix2 = "menu soir"
-choix3 = "cafete"
-choix4 = "horaires"
+choix1 = "Menu midi"
+choix2 = "Menu soir"
+choix3 = "Cafete"
+choix4 = "Horaires"
 
 print('     /$$$$$$$$\                  /$$   $$    ')
 print('    | $$    |$$                 | $$  $$     ')
@@ -136,9 +136,6 @@ def send_paquet(sender,payload):
 
 def whitelist():
     payload = {
-    "recipient":{
-    "id":me
-    },
     "setting_type" : "domain_whitelisting",
     "whitelisted_domains":[
     "https://m.me/pyrakk"
@@ -150,7 +147,7 @@ def whitelist():
 # CONFIGURATION DE LA PAGE HAL
 def reglage_menu():
     payload = {
-  "persistent_menu":[
+    "persistent_menu":[
     {
       "locale":"default",
       "call_to_actions":[

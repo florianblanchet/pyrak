@@ -21,10 +21,10 @@ def send_share(sender):
                         "elements": [{
                             "title": "Pyrak Chatbot",
                             "subtitle": texte,
-                            "default_action": {"type": "web_url","url": 'https://www.facebook.com/menupyrak/'},
+                            "default_action": {"type": "web_url","url": 'https://m.me/menupyrak/'},
                             "buttons": [{
                                   "type": "web_url",
-                                  "url": 'https://www.facebook.com/menupyrak/', 
+                                  "url": 'https://m.me/menupyrak/', 
                                   "title": 'Se lancer !'
                                 }]
                             }]

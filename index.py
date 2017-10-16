@@ -50,9 +50,9 @@ def webhook():
             if type_msg_recu == 'text_msg' :
                 type_msg_recu, texte, mots_du_msg=depaquet
                 menu=download_menu()
+                print(len(menu))
                 if ("menu" in mots_du_msg) and (similitudes(midi_liste,mots_du_msg)!=[]):
                     texte ="Menu du midi :"+'\n'+'\n' +menu[0][1]+" : " +menu[0][0]+'\n\n' +menu[1][1]+" : "+ menu[1][0]+'\n\n'+menu[2][1]+" : " + menu[2][0]+'\n\n'+menu[3][1]+" : "+ menu[3][0]+'\n\n'+menu[4][1] +" : "+ menu[4][0]+'\n\n'+menu[5][1]+" : "+ menu[5][0]+'\n\n'+menu[6][1]+" : "+ menu[6][0]
-                    #payload = send_text(sender,texte)
                     payload = send_choix_multiple4(sender,texte,choix1,choix2,choix3,choix4)
                     send_paquet(token,payload)
                     print('Repas midi envoyé')
@@ -122,7 +122,6 @@ def download_menu():
     plats = soup.find_all("td", attrs={"class" : "col-md-4"})
     nom_plats = soup.find_all("td", attrs={"align" : "left"})
     result = []
-    print(nom_plats)
     for i in range(len(plats)):
         a = str(plats[i].getText())
         b = str(nom_plats[i].getText())
@@ -137,12 +136,11 @@ def send_paquet(sender,payload):
 
 def whitelist():
     payload = {
-    "recipient":{
-    "id":me
-    },
+    "setting_type" : "domain_whitelisting",
     "whitelisted_domains":[
     "https://m.me/pyrakk"
-    ]
+    ],
+    "domain_action_type": "add"
     }
     return payload 
 

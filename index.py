@@ -136,6 +136,9 @@ def send_paquet(sender,payload):
 
 def whitelist():
     payload = {
+    "recipient":{
+    "id":me
+    },
     "setting_type" : "domain_whitelisting",
     "whitelisted_domains":[
     "https://m.me/pyrakk"

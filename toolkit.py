@@ -40,25 +40,12 @@ def depaquetage(sender,paquet,me,ponct_liste):
             print('Non identifié')
             print(paquet)
             return ['unknow_msg'] ## PAS UTILISE ENCORE        
-def url_shorter(url):
-    post_url = 'https://www.googleapis.com/urlshortener/v1/url'
-    postdata = {'longUrl':url}
-    headers = {'Content-Type':'application/json'}
-    req = urllib.request(
-        post_url,
-        json.dumps(postdata),
-        headers
-    )
-    ret = urllib2.urlopen(req).read()
-    print(ret)
-    return json.loads(ret)['id']
 def recherche_similitude(chercher,liste):
     position=-1
     for i in range(len(chercher)):
         for j in range(len(liste)):
             if chercher[i]==liste[j]:
-                return j
-    
+                return j    
 def similitudes (a,b):
 
     return list(set(a).intersection(b)) 

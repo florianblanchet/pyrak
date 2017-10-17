@@ -1,5 +1,8 @@
+# coding: utf-8
+
+import requests
+
 # POUR GENERER DES PAYLOAD :
-from toolkit import recherche_similitude
 
 def send_share(sender):
   texte = "Pyrak est un chatbot permettant de demander le menu du RAK, restaurant de l'IMT Atlantique"
@@ -13,7 +16,7 @@ def send_share(sender):
         "buttons":[
             {
             "type": "element_share",
-            "share_contents": { 
+            "share_contents": {
                 "attachment": {
                     "type": "template",
                     "payload": {
@@ -24,7 +27,7 @@ def send_share(sender):
                             "default_action": {"type": "web_url","url": 'https://m.me/menupyrak/'},
                             "buttons": [{
                                   "type": "web_url",
-                                  "url": 'https://m.me/menupyrak/', 
+                                  "url": 'https://m.me/menupyrak/',
                                   "title": 'Se lancer !'
                                 }]
                             }]
@@ -37,7 +40,7 @@ def send_share(sender):
 def send_text (sender,texte):
 
     return {'recipient': {'id': sender}, 'message': {'text': texte}}
-def send_choix_multiple5(sender,texte,choix1,choix2,choix3,choix4,choix5):
+def send_choix_multiple5(sender,texte,choix_dict):
   return {
   "recipient":{
     "id":sender
@@ -47,29 +50,41 @@ def send_choix_multiple5(sender,texte,choix1,choix2,choix3,choix4,choix5):
     "quick_replies":[
       {
         "content_type":"text",
-        "title":choix1,
-        "payload":choix1,
+        "title":choix_dict[0],
+        "payload":choix_dict[0],
       },
       {
         "content_type":"text",
-        "title":choix2,
-        "payload":choix2,
+        "title":choix_dict[1],
+        "payload":choix_dict[1],
       },
       {
         "content_type":"text",
-        "title":choix3,
-        "payload":choix3,
+        "title":choix_dict[2],
+        "payload":choix_dict[2],
       },
       {
         "content_type":"text",
-        "title":choix4,
-        "payload":choix4,
+        "title":choix_dict[3],
+        "payload":choix_dict[3],
       },
       {
         "content_type":"text",
-        "title":choix5,
-        "payload":choix5,
+        "title":choix_dict[4],
+        "payload":choix_dict[4],
       }
     ]
   }
  }
+
+# ENVOYER UN PAYLOAD
+def send_paquet(token,payload):
+    r = requests.post('https://graph.facebook.com/v2.6/me/messages/?access_token=' + token, json=payload)
+    print(r.text) #affiche la reponse a l'envoi; pratique si veut l'ID ou voir si bien envoye
+    return 'nothing'
+
+def senderator(token, sender, texte, choix_dict):
+    payload = send_choix_multiple5(sender, texte, choix_dict)
+    send_paquet(token, payload)
+    print('Repas')
+    return 'nothing'

@@ -7,7 +7,7 @@ import unidecode
 
 ponct_liste = ['.',',','!','?',';',':']
 midi_liste = ["midi","dejeuner","déjeuner","dejeune"]
-cafete_liste = ["cafet","cafeteriat","cafetariat","bar","cafet"]
+cafete_liste = ["cafet","cafeteriat","cafetariat","bar","cafete"]
 horaire_liste = ["horaire","horaires"]
 thanks_liste = ["merci","thanks"]
 bonjour_liste = ["salut","bonjour","hi","hello"]

@@ -93,28 +93,40 @@ def build_choix():
 def construct_text(menu,mots_du_msg, index):
     texte = ''
     if ("menu" in mots_du_msg):
-        if (similitudes(midi_liste, mots_du_msg) != []):
-            texte = "Menu du midi :" + '\n\n'
-            for i in range(index):
-                texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
-        elif ("soir" in mots_du_msg):
-            texte = "Menu du soir :" + '\n\n'
-            for i in range(index, len(menu) - 6):
-                texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
-        elif similitudes(cafete_liste, mots_du_msg) != []:
-            texte = "Menu de la cafet :" + '\n' + '\n' + \
-                    menu[len(menu) - 6][1] + " : " + \
-                    menu[len(menu) - 6][0] + '\n\n' + \
-                    menu[len(menu) - 5][1] + " : " + \
-                    menu[len(menu) - 5][0] + '\n\n' + \
-                    menu[len(menu) - 4][1] + " : " + \
-                    menu[len(menu) - 4][0] + '\n\n' + \
-                    menu[len(menu) - 3][1] + " : " + \
-                    menu[len(menu) - 3][0] + '\n\n' + \
-                    menu[len(menu) - 2][1] + " : " + \
-                    menu[len(menu) - 2][0] + '\n\n' + \
-                    menu[len(menu) - 1][1] + " : " + \
-                    menu[len(menu) - 1][0]
+        if len(menu)<10: #Cas ou c'est le weekend et il n'y a pas de cafetariat
+            if (similitudes(midi_liste, mots_du_msg) != []):
+                texte = "Menu du midi :" + '\n\n'
+                for i in range(len(menu)-4):
+                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
+            elif ("soir" in mots_du_msg):
+                texte = "Menu du soir :" + '\n\n'
+                for i in range(len(menu)-4,len(menu)):
+                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
+            elif similitudes(cafete_liste, mots_du_msg) != []:
+                texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
+        else: # en semaine avec la cafetariat
+            if (similitudes(midi_liste, mots_du_msg) != []):
+                texte = "Menu du midi :" + '\n\n'
+                for i in range(index):
+                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
+            elif ("soir" in mots_du_msg):
+                texte = "Menu du soir :" + '\n\n'
+                for i in range(index, len(menu) - 6):
+                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
+            elif similitudes(cafete_liste, mots_du_msg) != []:
+                texte = "Menu de la cafet :" + '\n' + '\n' + \
+                        menu[len(menu) - 6][1] + " : " + \
+                        menu[len(menu) - 6][0] + '\n\n' + \
+                        menu[len(menu) - 5][1] + " : " + \
+                        menu[len(menu) - 5][0] + '\n\n' + \
+                        menu[len(menu) - 4][1] + " : " + \
+                        menu[len(menu) - 4][0] + '\n\n' + \
+                        menu[len(menu) - 3][1] + " : " + \
+                        menu[len(menu) - 3][0] + '\n\n' + \
+                        menu[len(menu) - 2][1] + " : " + \
+                        menu[len(menu) - 2][0] + '\n\n' + \
+                        menu[len(menu) - 1][1] + " : " + \
+                        menu[len(menu) - 1][0]
     else:
         if similitudes(horaire_liste, mots_du_msg) != []:
             texte = "RAK :\nLundi au vendredi \n" \

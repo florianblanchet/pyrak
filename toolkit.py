@@ -9,6 +9,8 @@ ponct_liste = ['.',',','!','?',';',':']
 midi_liste = ["midi","dejeuner","déjeuner","dejeune"]
 cafete_liste = ["cafet","cafeteriat","cafetariat","bar","cafet"]
 horaire_liste = ["horaire","horaires"]
+thanks_liste = ["merci","thanks"]
+bonjour_liste = ["salut","bonjour","hi","hello"]
 
 #DOWNLOAD MENU
 def download_menu():
@@ -83,7 +85,7 @@ def extract_ponct(texte):
 
 def build_choix():
     choix_dict = {}
-    list_menu = ["Menu midi", "Menu soir", "Menu cafet", "Horaires", "Partager"]
+    list_menu = ["Menu midi", "Menu soir", "Menu cafete", "Horaires", "Partager"]
     i=0
     for item in list_menu:
         choix_dict[i] = item
@@ -114,7 +116,7 @@ def construct_text(menu,mots_du_msg, index):
                 for i in range(index, len(menu) - 6):
                     texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
             elif similitudes(cafete_liste, mots_du_msg) != []:
-                texte = "Menu de la cafet :" + '\n' + '\n' + \
+                texte = "Menu de la cafete :" + '\n' + '\n' + \
                         menu[len(menu) - 6][1] + " : " + \
                         menu[len(menu) - 6][0] + '\n\n' + \
                         menu[len(menu) - 5][1] + " : " + \
@@ -141,6 +143,10 @@ def construct_text(menu,mots_du_msg, index):
             texte = "partager"
         elif ("menu" in mots_du_msg):
             texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
+        elif similitudes(thanks_liste, mots_du_msg) != []:
+            texte = "Pas besoin de me remercier je suis là pour te servir!"
+        elif similitudes(bonjour_liste, mots_du_msg) != []:
+            texte = "Salut, content de te voir ici!"
         else:
             texte = "Je suis là que pour donner le menu ne m'en demandes pas trop! 😉"
 

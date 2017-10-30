@@ -96,7 +96,14 @@ def build_choix():
 def construct_text(menu,mots_du_msg, index):
     texte = ''
     if ("menu" in mots_du_msg):
-        if len(menu)<10 or index==0: #Cas ou c'est le weekend et il n'y a pas de cafetariat
+        if len(menu)==0:
+            if (similitudes(midi_liste, mots_du_msg) != []):
+                texte = "Menu du midi indisponible aujourd'hui"
+            elif ("soir" in mots_du_msg):
+                texte = "Menu du soir indisponible aujourd'hui"
+            elif similitudes(cafete_liste, mots_du_msg) != []:
+                texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
+        elif len(menu)<10 or index==0: #Cas ou c'est le weekend et il n'y a pas de cafetariat
             if (similitudes(midi_liste, mots_du_msg) != []):
                 texte = "Menu du midi :" + '\n\n'
                 for i in range(len(menu)-4):

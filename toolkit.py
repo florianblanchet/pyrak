@@ -22,6 +22,7 @@ def download_menu():
     nom_plats = soup.find_all("td", attrs={"align" : "left"})
     result = []
     premier_plat=0
+    index = 0
     for i in range(len(plats)):
         a = str(plats[i].getText())
         b = str(nom_plats[i].getText())
@@ -95,7 +96,7 @@ def build_choix():
 def construct_text(menu,mots_du_msg, index):
     texte = ''
     if ("menu" in mots_du_msg):
-        if len(menu)<10: #Cas ou c'est le weekend et il n'y a pas de cafetariat
+        if len(menu)<10 or index==0: #Cas ou c'est le weekend et il n'y a pas de cafetariat
             if (similitudes(midi_liste, mots_du_msg) != []):
                 texte = "Menu du midi :" + '\n\n'
                 for i in range(len(menu)-4):

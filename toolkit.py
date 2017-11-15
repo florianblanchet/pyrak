@@ -103,6 +103,8 @@ def construct_text(menu,mots_du_msg, index):
                 texte = "Menu du soir indisponible aujourd'hui"
             elif similitudes(cafete_liste, mots_du_msg) != []:
                 texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
+            else:
+                texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
         elif len(menu)<10 or index==0: #Cas ou c'est le weekend et il n'y a pas de cafetariat
             if (similitudes(midi_liste, mots_du_msg) != []):
                 texte = "Menu du midi :" + '\n\n'
@@ -114,6 +116,8 @@ def construct_text(menu,mots_du_msg, index):
                     texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
             elif similitudes(cafete_liste, mots_du_msg) != []:
                 texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
+            else:
+                texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
         else: # en semaine avec la cafetariat
             if (similitudes(midi_liste, mots_du_msg) != []):
                 texte = "Menu du midi :" + '\n\n'
@@ -137,6 +141,8 @@ def construct_text(menu,mots_du_msg, index):
                         menu[len(menu) - 2][0] + '\n\n' + \
                         menu[len(menu) - 1][1] + " : " + \
                         menu[len(menu) - 1][0]
+            else:
+                texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
     else:
         if similitudes(horaire_liste, mots_du_msg) != []:
             texte = "RAK :\nLundi au vendredi \n" \
@@ -149,8 +155,6 @@ def construct_text(menu,mots_du_msg, index):
                     " \n7h30 - 16h45"
         elif ("partager" in mots_du_msg):
             texte = "partager"
-        elif ("menu" in mots_du_msg):
-            texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
         elif similitudes(thanks_liste, mots_du_msg) != []:
             texte = "Pas besoin de me remercier je suis là pour te servir!"
         elif similitudes(bonjour_liste, mots_du_msg) != []:

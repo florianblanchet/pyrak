@@ -20,19 +20,24 @@ def download_menu():
     soup = BeautifulSoup(page, 'html.parser')
     plats = soup.find_all("td", attrs={"class" : "col-md-4"})
     nom_plats = soup.find_all("td", attrs={"align" : "left"})
-    result = []
-    premier_plat=0
-    index = 0
+    dejeuner = []
+    diner = []
+    cafete = []
     for i in range(len(plats)):
-        a = str(plats[i].getText())
-        b = str(nom_plats[i].getText())
-        result.append([a[1:-1],b[2:-2]])
-        if b[2:-2]=="Plat 1":
-            if premier_plat==1:
-                index = i
-            else:
-                premier_plat+=1
-    return result,index
+        if 'dejeuner' in plats[i].find_all('a',href=True)[0]['href']:
+            a = str(plats[i].getText())
+            b = str(nom_plats[i].getText())
+            dejeuner.append([a[1:-1],b[2:-2]])
+        elif 'diner' in plats[i].find_all('a',href=True)[0]['href']:
+            a = str(plats[i].getText())
+            b = str(nom_plats[i].getText())
+            diner.append([a[1:-1],b[2:-2]])
+        elif 'cafeteria' in plats[i].find_all('a',href=True)[0]['href']:
+            a = str(plats[i].getText())
+            b = str(nom_plats[i].getText())
+            cafete.append([a[1:-1],b[2:-2]])
+  
+    return dejeuner,diner,cafete
 
 
 
@@ -93,56 +98,35 @@ def build_choix():
         i+=1
     return choix_dict
 
-def construct_text(menu,mots_du_msg, index):
+def construct_text(dejeuner,diner,cafete,mots_du_msg):
     texte = ''
+    print('le dej : ',dejeuner)
+    print('le diner : ',diner)
+    print('la cafete : ',cafete)
     if ("menu" in mots_du_msg):
-        if len(menu)==0:
-            if (similitudes(midi_liste, mots_du_msg) != []):
+        if (similitudes(midi_liste, mots_du_msg) != []):
+            if len(dejeuner)==0:
                 texte = "Menu du midi indisponible aujourd'hui"
-            elif ("soir" in mots_du_msg):
+            else:
+                texte = "Menu du midi :" + '\n\n'
+                for i in range(len(dejeuner)):
+                    texte = texte + dejeuner[i][1] + " : " + dejeuner[i][0] + '\n\n'
+        elif ("soir" in mots_du_msg):
+            if len(diner)==0:
                 texte = "Menu du soir indisponible aujourd'hui"
-            elif similitudes(cafete_liste, mots_du_msg) != []:
-                texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
-            else:
-                texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
-        elif len(menu)<10 or index==0: #Cas ou c'est le weekend et il n'y a pas de cafetariat
-            if (similitudes(midi_liste, mots_du_msg) != []):
-                texte = "Menu du midi :" + '\n\n'
-                for i in range(len(menu)-4):
-                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
-            elif ("soir" in mots_du_msg):
+            else:    
                 texte = "Menu du soir :" + '\n\n'
-                for i in range(len(menu)-4,len(menu)):
-                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
-            elif similitudes(cafete_liste, mots_du_msg) != []:
+                for i in range(len(diner)):
+                    texte = texte + diner[i][1] + " : " + diner[i][0] + '\n\n'
+        elif similitudes(cafete_liste, mots_du_msg) != []:
+            if len(cafete)==0:
                 texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
-            else:
-                texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
-        else: # en semaine avec la cafetariat
-            if (similitudes(midi_liste, mots_du_msg) != []):
-                texte = "Menu du midi :" + '\n\n'
-                for i in range(index):
-                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
-            elif ("soir" in mots_du_msg):
-                texte = "Menu du soir :" + '\n\n'
-                for i in range(index, len(menu) - 6):
-                    texte = texte + menu[i][1] + " : " + menu[i][0] + '\n\n'
-            elif similitudes(cafete_liste, mots_du_msg) != []:
-                texte = "Menu de la cafete :" + '\n' + '\n' + \
-                        menu[len(menu) - 6][1] + " : " + \
-                        menu[len(menu) - 6][0] + '\n\n' + \
-                        menu[len(menu) - 5][1] + " : " + \
-                        menu[len(menu) - 5][0] + '\n\n' + \
-                        menu[len(menu) - 4][1] + " : " + \
-                        menu[len(menu) - 4][0] + '\n\n' + \
-                        menu[len(menu) - 3][1] + " : " + \
-                        menu[len(menu) - 3][0] + '\n\n' + \
-                        menu[len(menu) - 2][1] + " : " + \
-                        menu[len(menu) - 2][0] + '\n\n' + \
-                        menu[len(menu) - 1][1] + " : " + \
-                        menu[len(menu) - 1][0]
-            else:
-                texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
+            else:    
+                texte = "Menu de la cafete :" + '\n\n'
+                for i in range(len(cafete)):
+                    texte = texte + cafete[i][1] + " : " + cafete[i][0] + '\n\n'
+        else:
+            texte = "Tu veux quel type de menu ? Appuie sur les boutons ci dessous"
     else:
         if similitudes(horaire_liste, mots_du_msg) != []:
             texte = "RAK :\nLundi au vendredi \n" \
@@ -163,5 +147,3 @@ def construct_text(menu,mots_du_msg, index):
             texte = "Je suis là que pour donner le menu ne m'en demandes pas trop! 😉"
 
     return texte
-
-

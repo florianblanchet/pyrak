@@ -15,8 +15,8 @@ def webhook_get():
         type_msg_recu = depaquet[0]
         if type_msg_recu == 'text_msg':
             type_msg_recu, texte, mots_du_msg = depaquet
-            menu, index = download_menu()
-            text = construct_text(menu,mots_du_msg, index)
+            dejeuner,diner,cafete = download_menu()
+            text = construct_text(dejeuner,diner,cafete,mots_du_msg)
             if text == "partager":
                 send_paquet(token, send_share(sender))
                 return "nothing"

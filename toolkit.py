@@ -5,12 +5,14 @@ from bs4 import BeautifulSoup
 import unidecode
 
 
-ponct_liste = ['.',',','!','?',';',':']
+ponct_liste = ['.',',','!','?',';',':','-']
 midi_liste = ["midi","dejeuner","déjeuner","dejeune"]
 cafete_liste = ["cafet","cafeteriat","cafetariat","bar","cafete"]
 horaire_liste = ["horaire","horaires"]
 thanks_liste = ["merci","thanks"]
 bonjour_liste = ["salut","bonjour","hi","hello"]
+vulgarite_liste = ['tg','moche','nul','fdp','gueule','tagueule','connard','pd','idiot','encule','salop','ntm','nique','fuck','tocar','tocard'] 
+info_liste = ['langage','language','version','info','information','code','createur','proprietaire','concepteur']
 
 #DOWNLOAD MENU
 def download_menu():
@@ -23,20 +25,23 @@ def download_menu():
     dejeuner = []
     diner = []
     cafete = []
+    #print(plats)
     for i in range(len(plats)):
-        if 'dejeuner' in plats[i].find_all('a',href=True)[0]['href']:
+        if 'cafeteria' in plats[i].find_all('a',href=True)[0]['href']:
+            a = str(plats[i].getText())
+            b = str(nom_plats[i].getText())
+            cafete.append([a[1:-1],b[2:-2]])
+            pass
+        elif 'dejeuner' in plats[i].find_all('a',href=True)[0]['href']:
             a = str(plats[i].getText())
             b = str(nom_plats[i].getText())
             dejeuner.append([a[1:-1],b[2:-2]])
+            pass
         elif 'diner' in plats[i].find_all('a',href=True)[0]['href']:
             a = str(plats[i].getText())
             b = str(nom_plats[i].getText())
             diner.append([a[1:-1],b[2:-2]])
-        elif 'cafeteria' in plats[i].find_all('a',href=True)[0]['href']:
-            a = str(plats[i].getText())
-            b = str(nom_plats[i].getText())
-            cafete.append([a[1:-1],b[2:-2]])
-  
+            pass
     return dejeuner,diner,cafete
 
 
@@ -87,7 +92,13 @@ def similitudes (a,b):
 
 def extract_ponct(texte):
     texte = unidecode.unidecode(texte).lower()
-    return texte
+    l=''
+    for i in texte:
+        if i in ponct_liste:
+            l=l+" "
+        else : 
+            l=l+i
+    return l
 
 def build_choix():
     choix_dict = {}
@@ -100,9 +111,10 @@ def build_choix():
 
 def construct_text(dejeuner,diner,cafete,mots_du_msg):
     texte = ''
-    print('le dej : ',dejeuner)
-    print('le diner : ',diner)
-    print('la cafete : ',cafete)
+    #print('le dej : ',dejeuner)
+    #print('le diner : ',diner)
+    #print('la cafete : ',cafete)
+    print(mots_du_msg)
     if ("menu" in mots_du_msg):
         if (similitudes(midi_liste, mots_du_msg) != []):
             if len(dejeuner)==0:
@@ -143,6 +155,14 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
             texte = "Pas besoin de me remercier je suis là pour te servir!"
         elif similitudes(bonjour_liste, mots_du_msg) != []:
             texte = "Salut, content de te voir ici!"
+        elif similitudes(vulgarite_liste,mots_du_msg) !=[]:
+            texte = "T'es pas cool avec moi, tu dois surement avoir faim :"
+        elif ("pyrak" in mots_du_msg):
+            texte = "Mon nom est Pyrak, mais sais tu pourquoi? C'est une contraction de PY pour python et RAK pour le nom de la cantine. "
+        elif ("rak" in mots_du_msg):
+            texte = "Tu veux peut être savoir ce que veut dire RAK ? Ceci signifie Restaurant Associatif de Kernevent."
+        elif similitudes(info_liste,mots_du_msg) !=[] or (('qui' in mots_du_msg) and ('es' in mots_du_msg) and ('tu' in mots_du_msg)):
+            texte = "Je suis un chatbot codé en langage python pour plus d'info s'adresser à mon créateur, Florian Blanchet."
         else:
             texte = "Je suis là que pour donner le menu ne m'en demandes pas trop! 😉"
 

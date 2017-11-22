@@ -72,10 +72,41 @@ def send_choix_multiple5(sender,texte,choix_dict):
         "content_type":"text",
         "title":choix_dict[4],
         "payload":choix_dict[4],
+      },
+      {
+        "content_type":"text",
+        "title":choix_dict[5],
+        "payload":choix_dict[5],
       }
     ]
   }
  }
+def send_msg_button1_web(sender,title,subtitle,link,image_url,nom_button):
+  return {
+    "recipient": {
+      "id": sender
+    },
+    "message": {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": title,
+            "subtitle": subtitle,
+            "item_url": link,               
+            "image_url": image_url,
+            "buttons": [{
+              "type":"web_url",
+              "title":nom_button,
+              "url":link
+            }],
+          }]
+        }
+      }
+    }
+    }
+
 
 # ENVOYER UN PAYLOAD
 def send_paquet(token,payload):

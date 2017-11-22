@@ -3,7 +3,7 @@ import traceback
 import json
 from config import me, token, FB_VERIFY_TOKEN
 from flask import request
-from send import senderator, send_share, send_paquet
+from send import senderator, send_share, send_paquet, send_msg_button1_web
 from toolkit import depaquetage, build_choix, ponct_liste, construct_text, download_menu
 
 def webhook_get():
@@ -19,6 +19,14 @@ def webhook_get():
             text = construct_text(dejeuner,diner,cafete,mots_du_msg)
             if text == "partager":
                 send_paquet(token, send_share(sender))
+                return "nothing"
+            elif text == "recharge":
+                link = "https://services.ard.fr/fr/espaces-clients/etablissements/enst/accueil.html?logintype=logout"
+                title = "Recharge de compte RAK"
+                subtitle = "Cliquez pour accéder au site du RAK"
+                image_url = "http://services.telecom-bretagne.eu/rak/images/rak_logo.jpg"
+                nom_button = "Recharger"
+                send_paquet(token, send_msg_button1_web(sender,title,subtitle,link,image_url,nom_button))
                 return "nothing"
             senderator(token,sender, text, choix_dict)
         else:

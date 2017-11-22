@@ -102,7 +102,7 @@ def extract_ponct(texte):
 
 def build_choix():
     choix_dict = {}
-    list_menu = ["Menu midi", "Menu soir", "Menu cafete", "Horaires", "Partager"]
+    list_menu = ["Menu midi", "Menu soir", "Menu cafete", "Horaires", "Recharge","Partager"]
     i=0
     for item in list_menu:
         choix_dict[i] = item
@@ -149,8 +149,10 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
                     "\n19h30 - 20h\n\n" \
                     "BAR :\nLundi au vendredi" \
                     " \n7h30 - 16h45"
-        elif ("partager" in mots_du_msg):
+        elif ("partager" in mots_du_msg) or ("share" in mots_du_msg):
             texte = "partager"
+        elif ("recharge" in mots_du_msg):
+            texte = "recharge"
         elif similitudes(thanks_liste, mots_du_msg) != []:
             texte = "Pas besoin de me remercier je suis là pour te servir!"
         elif similitudes(bonjour_liste, mots_du_msg) != []:

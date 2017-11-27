@@ -13,7 +13,7 @@ thanks_liste = ["merci","thanks"]
 bonjour_liste = ["salut","bonjour","hi","hello"]
 vulgarite_liste = ['tg','moche','nul','fdp','gueule','tagueule','connard','pd','idiot','encule','salop','ntm','nique','fuck','tocar','tocard'] 
 info_liste = ['langage','language','version','info','information','code','createur','proprietaire','concepteur']
-
+recharge_liste = ['recharge','recharger']
 #DOWNLOAD MENU
 def download_menu():
     req = urllib.request.Request('http://services.telecom-bretagne.eu/rak/')
@@ -151,7 +151,7 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
                     " \n7h30 - 16h45"
         elif ("partager" in mots_du_msg) or ("share" in mots_du_msg):
             texte = "partager"
-        elif ("recharge" in mots_du_msg):
+        elif similitudes(recharge_liste,mots_du_msg) != []:
             texte = "recharge"
         elif similitudes(thanks_liste, mots_du_msg) != []:
             texte = "Pas besoin de me remercier je suis là pour te servir!"
@@ -166,6 +166,6 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
         elif similitudes(info_liste,mots_du_msg) !=[] or (('qui' in mots_du_msg) and ('es' in mots_du_msg) and ('tu' in mots_du_msg)):
             texte = "Je suis un chatbot codé en langage python pour plus d'info s'adresser à mon créateur, Florian Blanchet."
         else:
-            texte = "Je suis là que pour donner le menu ne m'en demandes pas trop! 😉"
+            texte = "Je suis là que pour donner le menu ne m'en demande pas trop! 😉"
 
     return texte

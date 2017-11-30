@@ -118,7 +118,7 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
     print(mots_du_msg)
     if ("menu" in mots_du_msg):
         if (similitudes(midi_liste, mots_du_msg) != []):
-            print(dejeuner)
+            #print(dejeuner)
             if len(dejeuner)==0:
                 texte = "Menu du midi indisponible aujourd'hui. Le Rak ne l'a pas diffusé."
             else:

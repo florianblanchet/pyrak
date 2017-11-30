@@ -14,6 +14,7 @@ bonjour_liste = ["salut","bonjour","hi","hello"]
 vulgarite_liste = ['tg','moche','nul','fdp','gueule','tagueule','connard','pd','idiot','encule','salop','ntm','nique','fuck','tocar','tocard'] 
 info_liste = ['langage','language','version','info','information','code','createur','proprietaire','concepteur']
 recharge_liste = ['recharge','recharger']
+
 #DOWNLOAD MENU
 def download_menu():
     req = urllib.request.Request('http://services.telecom-bretagne.eu/rak/')
@@ -117,22 +118,23 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
     print(mots_du_msg)
     if ("menu" in mots_du_msg):
         if (similitudes(midi_liste, mots_du_msg) != []):
+            print(dejeuner)
             if len(dejeuner)==0:
-                texte = "Menu du midi indisponible aujourd'hui"
+                texte = "Menu du midi indisponible aujourd'hui. Le Rak ne l'a pas diffusé."
             else:
                 texte = "Menu du midi :" + '\n\n'
                 for i in range(len(dejeuner)):
                     texte = texte + dejeuner[i][1] + " : " + dejeuner[i][0] + '\n\n'
         elif ("soir" in mots_du_msg):
             if len(diner)==0:
-                texte = "Menu du soir indisponible aujourd'hui"
+                texte = "Menu du soir indisponible aujourd'hui. Le Rak ne l'a pas diffusé."
             else:    
                 texte = "Menu du soir :" + '\n\n'
                 for i in range(len(diner)):
                     texte = texte + diner[i][1] + " : " + diner[i][0] + '\n\n'
         elif similitudes(cafete_liste, mots_du_msg) != []:
             if len(cafete)==0:
-                texte = "Il n'y a pas de menu de cafetariat aujourd'hui."
+                texte = "Menu de la cafetariat indisponible aujourd'hui. Le Rak ne l'a pas diffusé."
             else:    
                 texte = "Menu de la cafete :" + '\n\n'
                 for i in range(len(cafete)):

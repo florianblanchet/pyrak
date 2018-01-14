@@ -6,7 +6,8 @@ import requests
 
 def send_share(sender):
   texte = "Pyrak est un chatbot permettant de demander le menu du RAK, restaurant de l'IMT Atlantique"
-  return {"recipient":{"id":sender },
+  return {"messaging_type": "RESPONSE",
+  "recipient":{"id":sender },
   "message":{
     "attachment":{
       "type":"template",
@@ -39,9 +40,10 @@ def send_share(sender):
     }}}
 def send_text (sender,texte):
 
-    return {'recipient': {'id': sender}, 'message': {'text': texte}}
+    return {"messaging_type": "RESPONSE",'recipient': {'id': sender}, 'message': {'text': texte}}
 def send_choix_multiple5(sender,texte,choix_dict):
   return {
+  "messaging_type": "RESPONSE",
   "recipient":{
     "id":sender
   },
@@ -83,6 +85,7 @@ def send_choix_multiple5(sender,texte,choix_dict):
  }
 def send_msg_button1_web(sender,title,subtitle,link,image_url,nom_button):
   return {
+    "messaging_type": "RESPONSE",
     "recipient": {
       "id": sender
     },

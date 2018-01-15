@@ -3,14 +3,14 @@
 import urllib.request
 from bs4 import BeautifulSoup
 import unidecode
-
+from send import *
 
 ponct_liste = ['.',',','!','?',';',':','-']
 midi_liste = ["midi","dejeuner","déjeuner","dejeune"]
 cafete_liste = ["cafet","cafeteriat","cafetariat","bar","cafete"]
 horaire_liste = ["horaire","horaires"]
 thanks_liste = ["merci","thanks"]
-bonjour_liste = ["salut","bonjour","hi","hello"]
+bonjour_liste = ["salut","bonjour","hi","hello","coucou"]
 vulgarite_liste = ['tg','moche','nul','fdp','gueule','tagueule','connard','pd','idiot','encule','salop','ntm','nique','fuck','tocar','tocard'] 
 info_liste = ['langage','language','version','info','information','code','createur','proprietaire','concepteur']
 recharge_liste = ['recharge','recharger']
@@ -167,6 +167,12 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
             texte = "Tu veux peut être savoir ce que veut dire RAK ? Ceci signifie Restaurant Associatif de Kernevent."
         elif similitudes(info_liste,mots_du_msg) !=[] or (('qui' in mots_du_msg) and ('es' in mots_du_msg) and ('tu' in mots_du_msg)):
             texte = "Je suis un chatbot codé en langage python pour plus d'info s'adresser à mon créateur, Florian Blanchet."
+        elif ("breizh" in mots_du_msg):
+            texte = "breizh"
+        elif ("ker" in mots_du_msg):
+            texte = "ker"
+        elif ("aucune" in mots_du_msg):
+            texte = "aucune"
         else:
             texte = "Je suis là que pour donner le menu ne m'en demande pas trop! 😉"
 

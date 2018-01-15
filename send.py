@@ -83,6 +83,33 @@ def send_choix_multiple5(sender,texte,choix_dict):
     ]
   }
  }
+def send_choix_multiple(sender,texte,catalogue):
+  elements = []
+  #print(catalogue.keys())
+  if len(catalogue)>6:  # Permet de limiter le nombre de lien à envoyer 
+    end = 5
+  else:
+    end = len(catalogue)
+  print(end)
+  for i in range(end):
+    item = 'item'+str(i)
+    page ={
+        "content_type":"text",
+        "title":catalogue[item]['title'],
+        "payload":catalogue[item]['payload'],
+        "image_url":catalogue[item]['image_url'],
+    }
+    elements.append(page)
+  return {
+  "messaging_type": "RESPONSE",
+  "recipient":{
+    "id":sender
+  },
+  "message":{
+    "text":texte,
+    "quick_replies":elements
+   }
+  }
 def send_msg_button1_web(sender,title,subtitle,link,image_url,nom_button):
   return {
     "messaging_type": "RESPONSE",

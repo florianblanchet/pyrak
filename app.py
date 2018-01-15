@@ -36,7 +36,7 @@ def webhook_get():
                 text = 'Ta réponse a été enregistrée!'
             senderator(token,sender, text, choix_dict)
             if "midi" in text:
-                texte1 = "⚠ SONDAGE ⚠ : Nous voilà à mis chemin de la campagne electorale, un sondage s'impose. Quelle est la meilleure liste selon toi ?"
+                texte1 = "⚠ SONDAGE ⚠ : Nous voilà à mi-chemin de la campagne electorale, un sondage s'impose. Quelle est la meilleure liste selon toi ?"
                 payload = send_choix_multiple(sender,texte1,campagne)
                 send_paquet(token,payload)
         else:

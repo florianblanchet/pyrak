@@ -167,12 +167,6 @@ def construct_text(dejeuner,diner,cafete,mots_du_msg):
             texte = "Tu veux peut être savoir ce que veut dire RAK ? Ceci signifie Restaurant Associatif de Kernevent."
         elif similitudes(info_liste,mots_du_msg) !=[] or (('qui' in mots_du_msg) and ('es' in mots_du_msg) and ('tu' in mots_du_msg)):
             texte = "Je suis un chatbot codé en langage python pour plus d'info s'adresser à mon créateur, Florian Blanchet."
-        elif ("breizh" in mots_du_msg):
-            texte = "breizh"
-        elif ("ker" in mots_du_msg):
-            texte = "ker"
-        elif ("aucune" in mots_du_msg):
-            texte = "aucune"
         else:
             texte = "Je suis là que pour donner le menu ne m'en demande pas trop! 😉"
 

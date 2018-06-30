@@ -6,14 +6,14 @@ from app import webhook_get
 app = Flask("app")  #instance de la classe FLask. premier argument est le nom
 
 
-print('     /$$$$$$$$\                  /$$   $$    ')
-print('    | $$    |$$                 | $$  $$     ')
-print('    | $$    | $$    /$$$$$$$    | $$ $$      ')
-print('    | $$$$$$$$$$   |_______$$   | $$$$       ')
-print('    | $$    \ $$    /$$$$$$$$   | $$ $$      ')
-print('    | $$     \ $$  |$$__   $$   | $$  $$     ')
-print('    | $$      \ $$ | $$$$$$$$   | $$ \ $$    ')
-print('    |__/       \_/  \_______/   |__/  |_/    ')
+print(' /$$$$$$$$\   __     __   /$$$$$$$$\                  /$$   $$    ')
+print('| $$    |$$   \$$   /$$  | $$    |$$                 | $$  $$     ')
+print('| $$    |$$    \$$ /$$   | $$    | $$    /$$$$$$$    | $$ $$      ')
+print('| $$$$$$$$$     \$$$$    | $$$$$$$$$$   |_______$$   | $$$$       ')
+print('| $$            /$$      | $$    \ $$    /$$$$$$$$   | $$ $$      ')
+print('| $$           /$$       | $$     \ $$  |$$__   $$   | $$  $$     ')
+print('| $$          /$$        | $$      \ $$ | $$$$$$$$   | $$ \ $$    ')
+print('|__/         /__         |__/       \_/  \_______/   |__/  |_/    ')
 
 @app.route('/', methods=['POST']) #A decorator that is used to register a view function for a given URL
 # rule.Ici rule = / et en option les methodes assignées à ce rule
